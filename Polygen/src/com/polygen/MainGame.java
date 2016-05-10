@@ -1,5 +1,7 @@
 package com.polygen;
 
+import java.awt.Canvas;
+import java.awt.Window;
 import java.util.ArrayList;
 
 /**
@@ -8,13 +10,20 @@ import java.util.ArrayList;
  * @author Owen Anderson
  *
  */
-public abstract class MainGame {
+public abstract class MainGame extends Canvas implements Runnable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2431754512502369258L;
 	//init the global variables
 	private String title;
+	private Thread thread;
 	private int screenWidth;
 	private int screenHeight;
 	private int currentState;
+	private boolean resizeable;
+	private boolean running;
 	private ArrayList<BasicState> states;
 	
 	/**
@@ -51,6 +60,25 @@ public abstract class MainGame {
 		addStates();
 	}
 	
+	public void startGame(){
+		new Window(title, screenWidth, screenHeight, this);
+	}
+	
+	public synchronized void start(){
+		thread = new Thread(this);
+		thread.start();
+		running = true;
+	}
+	
+	public synchronized void stop(){
+		try{
+			thread.join();
+			running = false;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * method to add a state to the list of states
 	 * @param state the state
@@ -59,6 +87,11 @@ public abstract class MainGame {
 		states.add(state);
 	}
 	
+	/**
+	 * Switches the state to a given state
+	 * @param stateIndex the state that will be changed to
+	 * @return if the change was done successfully
+	 */
 	public boolean switchState(int stateIndex){
 		try{
 			states.get(stateIndex);
@@ -97,6 +130,14 @@ public abstract class MainGame {
 
 	public void setScreenHeight(int screenHeight) {
 		this.screenHeight = screenHeight;
+	}
+
+	public boolean isResizeable() {
+		return resizeable;
+	}
+
+	public void setResizeable(boolean resizeable) {
+		this.resizeable = resizeable;
 	}
 	
 }
