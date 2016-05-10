@@ -14,6 +14,7 @@ public abstract class MainGame {
 	private String title;
 	private int screenWidth;
 	private int screenHeight;
+	private int currentState;
 	private ArrayList<BasicState> states;
 	
 	/**
@@ -46,6 +47,7 @@ public abstract class MainGame {
 	 */
 	private void init() {
 		states = new ArrayList<BasicState>();
+		currentState = 0;
 		addStates();
 	}
 	
@@ -55,6 +57,20 @@ public abstract class MainGame {
 	 */
 	public void addState(BasicState state){
 		states.add(state);
+	}
+	
+	public boolean switchState(int stateIndex){
+		try{
+			states.get(stateIndex);
+		}catch(ArrayIndexOutOfBoundsException e){ //runs if the state is not in the list
+			System.out.println("State did not exsist in the list");
+			return false;
+		}
+		states.get(currentState).stopState();
+		currentState = stateIndex;
+		states.get(currentState).startState();
+		
+		return true;
 	}
 	
 	//Getters and setters

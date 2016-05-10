@@ -1,5 +1,7 @@
 package com.polygen;
 
+import java.awt.Polygon;
+
 public abstract class GameObject {
 	private String[] tags;
 	private Polygon poly;
