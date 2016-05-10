@@ -13,7 +13,7 @@ public abstract class GameObject {
 	public abstract void update();
 	
 	public void setBounds(int[][] bounds){
-		this.bounds = Polygon()
+		this.bounds = Polygon();
 		
 	}
 	
