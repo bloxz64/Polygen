@@ -4,7 +4,7 @@ public abstract class GameObject {
 	private String[] tags;
 	private Polygon bounds;
 	
-	public GameObject(String[] tags[]){
+	public GameObject(String[] tags){
 		this.tags = tags;
 	}
 	
