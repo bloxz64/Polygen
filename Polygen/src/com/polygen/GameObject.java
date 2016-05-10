@@ -3,7 +3,7 @@ package com.polygen;
 public abstract class GameObject {
 	private String[] tags;
 	
-	public GameObject(String[] tags[]){
+	public GameObject(String[] tags){
 		this.tags = tags;
 	}
 	
