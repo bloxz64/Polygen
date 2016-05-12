@@ -15,7 +15,7 @@ public class renderTest {
 		
 		while (true){
 			draw();
-			update()
+			update();
 			checkStatuses();
 			amendUpdate();
 			
