@@ -1,26 +1,22 @@
 package com.exampleGames;
 
-public class renderTest {
+import com.polygen.MainGame;
 
-	public static void main(String[] args) {
-		Polygen.setupWindow(500, 500);
-		
-		update(){
-			onAll(move(1,0), "player");
-		}
-		
-		checkStatuses(){
-			onAll(isTouching);
-		}
-		
-		while (true){
-			draw();
-			update();
-			checkStatuses();
-			amendUpdate();
-			
-		}
+public class renderTest extends MainGame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1246471372144188805L;
+
+	public static void main(String[] args){
+		renderTest game = new renderTest();
+		game.startGame();
+	}
+	
+	@Override
+	public void addStates() {
+		
 	}
 
 }

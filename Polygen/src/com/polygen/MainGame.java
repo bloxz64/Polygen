@@ -1,7 +1,10 @@
 package com.polygen;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Window;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 /**
@@ -17,35 +20,15 @@ public abstract class MainGame extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -2431754512502369258L;
 	//init the global variables
-	private String title;
+	private String title = "Basic Game";
 	private Thread thread;
-	private int screenWidth;
-	private int screenHeight;
+	private int screenWidth = 500;
+	private int screenHeight = 500;
 	private int currentState;
 	private boolean resizeable;
 	private boolean running;
 	private ArrayList<BasicState> states;
-	
-	/**
-	 * Base constructor that takes no arguments
-	 */
-	public MainGame(){
-		init();
-	}
 
-	/**
-	 * Constructor that includes setting base values for screen width, height and title of the window
-	 * @param width the width that the screen will be
-	 * @param height the height that the screen will be
-	 * @param title the title of the game
-	 */
-	public MainGame(int width, int height, String title){
-		init();
-		this.title = title;
-		this.screenWidth = width;
-		this.screenHeight = height;
-	}
-	
 	/**
 	 * Method to add the states based on what the creator of the subclass has and only runs on start of game
 	 */
@@ -61,15 +44,22 @@ public abstract class MainGame extends Canvas implements Runnable{
 	}
 	
 	public void startGame(){
-		new Window(title, screenWidth, screenHeight, this);
+		init();
+		new GameWindow(title, screenWidth, screenHeight, this);
 	}
 	
+	/**
+	 * starts the main loop
+	 */
 	public synchronized void start(){
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 	
+	/**
+	 * stops the main loop
+	 */
 	public synchronized void stop(){
 		try{
 			thread.join();
@@ -77,6 +67,65 @@ public abstract class MainGame extends Canvas implements Runnable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * the main loop for the game
+	 */
+	public void run() {
+		long lastTime = System.nanoTime();
+		double amountOfTicks = 60d;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0d;
+		long timer = System.currentTimeMillis();
+		int frames = 0;
+		while (running){
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			while(delta >= 1){
+				update(delta);
+				delta--;
+			}
+			if(running)
+				render();
+			frames++;
+			
+			if(System.currentTimeMillis() - timer > 1000){
+				timer += 1000;
+				System.out.println("FPS: " + frames);
+				frames = 0;
+			}
+		}
+		stop();
+	}
+	
+	/**
+	 * renders the current state
+	 */
+	private void render() {
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null){
+			this.createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		states.get(currentState).render(g);
+		
+		g.dispose();
+		bs.show();
+	}
+	
+	/**
+	 * updates the current state
+	 */
+	private void update(double delta) {
+		states.get(currentState).update(delta);
 	}
 	
 	/**

@@ -26,7 +26,7 @@ public abstract class BasicState {
 	 * the update method used to the game
 	 * @param delta the time between the last update and this one
 	 */
-	public abstract void update(int delta);
+	public abstract void update(double delta);
 	
 	/**
 	 * runs when the state stops to close up anything that needs to be

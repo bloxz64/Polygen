@@ -20,7 +20,7 @@ public class GameWindow extends Canvas{
 		
 		j.setResizable(game.isResizeable());
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setLocation(null);
+		j.setLocationRelativeTo(null);
 		j.add(game);
 		j.setVisible(true);
 		game.start();
