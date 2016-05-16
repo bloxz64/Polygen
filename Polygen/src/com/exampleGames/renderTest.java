@@ -16,7 +16,8 @@ public class renderTest extends MainGame{
 	
 	@Override
 	public void addStates() {
-		
+		addState(new FirstState());
+		addState(new SecondState());
 	}
 
 }

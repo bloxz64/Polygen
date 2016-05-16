@@ -20,13 +20,13 @@ public abstract class BasicState {
 	 * render the states stuff
 	 * @param g the graphics object used to draw stuff
 	 */
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics g, MainGame game);
 	
 	/**
 	 * the update method used to the game
 	 * @param delta the time between the last update and this one
 	 */
-	public abstract void update(double delta);
+	public abstract void update(double delta, MainGame game);
 	
 	/**
 	 * runs when the state stops to close up anything that needs to be

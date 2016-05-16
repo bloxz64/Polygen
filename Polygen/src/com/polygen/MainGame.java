@@ -115,7 +115,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		states.get(currentState).render(g);
+		states.get(currentState).render(g, this);
 		
 		g.dispose();
 		bs.show();
@@ -125,7 +125,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 	 * updates the current state
 	 */
 	private void update(double delta) {
-		states.get(currentState).update(delta);
+		states.get(currentState).update(delta, this);
 	}
 	
 	/**
