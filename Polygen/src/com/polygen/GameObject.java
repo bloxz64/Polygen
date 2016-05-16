@@ -1,11 +1,10 @@
-package com.polygen;
+  package com.polygen;
 
 import java.awt.Polygon;
 
 public abstract class GameObject {
 	private String[] tags;
 	private Polygon poly;
-	private double[] cords;
 	private int angle;
 	
 	public GameObject(String[] tags){
@@ -17,7 +16,8 @@ public abstract class GameObject {
 	public abstract void update();
 	
 	public void setBounds(int[] xValues, int[] yValues){
-		this.poly = new Polygon(xValues, yValues, xValues.length);
+		poly = new Polygon(xValues, yValues, xValues.length);
+		poly.addPoint(xValues[0], yValues[0]);
 	}
 	public Polygon getPoly(){
 		return poly;
@@ -34,21 +34,34 @@ public abstract class GameObject {
 		return angle;
 	}
 	
-	public void setPos(double x, double y){
-		cords = new double[]{x, y};
+	public void setPos(int x, int y){
+		poly.translate(x - poly.xpoints[1], y - poly.ypoints[1]);
 	}
-	public void move(double deltaX, double deltaY){
-		cords[0] += deltaX;
-		cords[1] += deltaY;
+	public void move(int deltaX, int deltaY){
+		poly.translate(deltaX, deltaY);
 	}
-	public void moveInDir(int distance, int angle){
-		cords[0] += distance * Math.cos(angle);
-		cords[1] += distance * Math.sin(angle);
+	public void moveInDir(double distance, int angle){
+		poly.translate((int)(distance * Math.cos(angle)), (int)(distance * Math.sin(angle)));
+	}
+	
+	private boolean outside(int inMin, int inMax, int outMin, int outMax){
+		if (inMin > outMax || outMin > inMax)){
+			return true;
+		}
+		else if (){
+			against.getPoly().getBounds().getMaxX()
+		}
+		return false;
 	}
 	
 	public boolean isTouching(GameObject against){
-		//TEMPERORY CODE
-		//TODO replace with edge intersection detection
-		return poly.intersects(against.getPoly().getBounds2D());
+		for (int is = 0; is < poly.npoints; is++){
+			for (int isnt = 0; isnt < against.getPoly().npoints; isnt++){
+				if (poly.getBounds().getMinX() > against.getPoly().getBounds().getMaxX() || against.getPoly().getBounds().getMinX() > poly.getBounds().getMaxX() 
+					|| poly.getBounds().getMinY() > against.getPoly().getBounds().getMaxY() || against.getPoly().getBounds().getMinY() > poly.getBounds().getMaxY()){
+					
+				}
+			}
+		}
 	}
 }
