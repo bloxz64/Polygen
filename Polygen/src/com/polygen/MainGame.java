@@ -3,7 +3,6 @@ package com.polygen;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Window;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -41,8 +40,15 @@ public abstract class MainGame extends Canvas implements Runnable{
 		states = new ArrayList<BasicState>();
 		currentState = 0;
 		addStates();
+		initStates();
 	}
 	
+	private void initStates() {
+		for(int i = 0; i < states.size(); i++){
+			states.get(i).init();
+		}
+	}
+
 	public void startGame(){
 		init();
 		new GameWindow(title, screenWidth, screenHeight, this);
@@ -115,6 +121,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
+		g.clearRect(0, 0, screenWidth, screenHeight);
 		states.get(currentState).render(g, this);
 		
 		g.dispose();

@@ -1,5 +1,6 @@
 package com.exampleGames;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import com.polygen.BasicState;
@@ -7,33 +8,33 @@ import com.polygen.MainGame;
 
 public class SecondState extends BasicState{
 
+	private int x = 0;
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void startState() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		g.fillRect(300, 100, 100, 200);
+		g.setColor(Color.BLACK);
+		g.fillRect(x, 100, 100, 200);
+		g.setColor(Color.BLUE);
+		g.fillRect(100, x, 200, 100);
 		
 	}
 
 	@Override
 	public void update(double delta, MainGame game) {
-		// TODO Auto-generated method stub
-		
+		x++;
 	}
 
 	@Override
 	public void stopState() {
-		// TODO Auto-generated method stub
 		
 	}
 

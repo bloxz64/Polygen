@@ -2,6 +2,7 @@ package com.exampleGames;
 
 import java.awt.Graphics;
 
+import com.polygen.Animation;
 import com.polygen.BasicState;
 import com.polygen.MainGame;
 
@@ -9,9 +10,10 @@ public class FirstState extends BasicState{
 
 	
 	int test = 0;
+	Animation a;
 	@Override
 	public void init() {
-		
+		a = new Animation("src/com/res/HitlerRave");
 	}
 
 	@Override
