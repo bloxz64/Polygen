@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 public class KeyListener extends KeyAdapter{
-	private HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>(123);
+	private HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>(0); //123
 	  
 
 	public KeyListener(){
