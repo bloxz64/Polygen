@@ -6,6 +6,7 @@ public abstract class GameObject {
 	private String[] tags;
 	private Polygon poly;
 	private int angle;
+	private int a, b, c, A, B, C, x, y;
 	
 	public GameObject(String[] tags){
 		this.tags = tags;
@@ -44,24 +45,28 @@ public abstract class GameObject {
 		poly.translate((int)(distance * Math.cos(angle)), (int)(distance * Math.sin(angle)));
 	}
 	
-	private boolean outside(int inMin, int inMax, int outMin, int outMax){
-		if (inMin > outMax || outMin > inMax)){
-			return true;
-		}
-		else if (){
-			against.getPoly().getBounds().getMaxX()
-		}
-		return false;
-	}
-	
 	public boolean isTouching(GameObject against){
-		for (int is = 0; is < poly.npoints; is++){
-			for (int isnt = 0; isnt < against.getPoly().npoints; isnt++){
-				if (poly.getBounds().getMinX() > against.getPoly().getBounds().getMaxX() || against.getPoly().getBounds().getMinX() > poly.getBounds().getMaxX() 
-					|| poly.getBounds().getMinY() > against.getPoly().getBounds().getMaxY() || against.getPoly().getBounds().getMinY() > poly.getBounds().getMaxY()){
+		if (poly.getBounds().intersects(against.getPoly().getBounds())){
+			for (int is = 0; is < poly.npoints; is++){
+				for (int isnt = 0; isnt < against.getPoly().npoints; isnt++){
+					a = poly.ypoints[is] - poly.ypoints[is+1];
+					b = poly.xpoints[is+1] - poly.xpoints[is];
+					c = (a * poly.xpoints[is]) + (b * poly.ypoints[is]);
+					A = against.getPoly().ypoints[is] - against.getPoly().ypoints[is+1];
+					B = against.getPoly().xpoints[is+1] - against.getPoly().xpoints[is];
+					C = (A * against.getPoly().xpoints[is]) + (B * against.getPoly().ypoints[is]);
 					
+					x = ((c * B) - (C * b))/((a * B) - (A * b));
+					y = ((a * C) - (A * c))/((a * B) - (A * b));
+					
+					if ((x > poly.xpoints[is] && x < poly.xpoints[is+1]) || (x < poly.xpoints[is] && x > poly.xpoints[is+1])){
+						if ((y > poly.ypoints[is] && y < poly.ypoints[is+1]) || (y < poly.ypoints[is] && y > poly.ypoints[is+1])){
+							return true;
+						}
+					}
 				}
 			}
 		}
+		return false;
 	}
 }
