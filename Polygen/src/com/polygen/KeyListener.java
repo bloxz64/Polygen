@@ -4,11 +4,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-public class Listener extends KeyAdapter{
+public class KeyListener extends KeyAdapter{
 	private HashMap<Integer, Boolean> keys = new HashMap<Integer, Boolean>(123);
 	  
 
-	public Listener(){
+	public KeyListener(){
 		
 	}
 	
