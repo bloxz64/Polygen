@@ -93,9 +93,11 @@ public abstract class MainGame extends Canvas implements Runnable{
 				update(delta);
 				delta--;
 			}
-			if(running)
+			if(running){
 				render();
-			frames++;
+				frames++;
+			}
+			
 			
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;

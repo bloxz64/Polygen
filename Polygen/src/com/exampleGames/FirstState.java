@@ -29,7 +29,7 @@ public class FirstState extends BasicState{
 	@Override
 	public void update(double delta, MainGame game) {
 		test++;
-		if(test > 100){
+		if(test > 60){
 			game.switchState(1);
 		}else{
 			System.out.println(test);
