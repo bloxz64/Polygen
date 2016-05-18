@@ -21,10 +21,7 @@ public class SecondState extends BasicState{
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		g.setColor(Color.BLACK);
-		g.fillRect(x, 100, 100, 200);
-		g.setColor(Color.BLUE);
-		g.fillRect(100, x, 200, 100);
+		
 		
 	}
 

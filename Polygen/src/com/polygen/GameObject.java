@@ -1,5 +1,6 @@
   package com.polygen;
 
+import java.awt.Graphics;
 import java.awt.Polygon;
 
 public abstract class GameObject {
@@ -12,9 +13,9 @@ public abstract class GameObject {
 		this.tags = tags;
 	}
 	
-	public abstract void render();
+	public abstract void render(Graphics g, MainGame game);
 	
-	public abstract void update();
+	public abstract void update(double delta, MainGame game);
 	
 	public void setBounds(int[] xValues, int[] yValues){
 		poly = new Polygon(xValues, yValues, xValues.length);
