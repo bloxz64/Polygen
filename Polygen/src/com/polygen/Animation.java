@@ -2,6 +2,7 @@ package com.polygen;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,13 +10,14 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Animation {
-	ArrayList<Image> images = new ArrayList<Image>();
-	int frameNum = 0, speed = 0;
-	boolean playing = true;
+	private ArrayList<Image> images = new ArrayList<Image>();
+	private int frameNum = 0, slowness = 500, ticksToNextFrame;
+	private Rectangle bounds;
+	private boolean playing = true;
 	
 	/**
-	 * 
-	 * @param path
+	 * Creates a new animation at the given path
+	 * @param path the folder with the png images in them titled from 0 to however many frames there are in the gif
 	 */
 	public Animation(String path){
 		int i = 0;
@@ -38,9 +40,16 @@ public class Animation {
 	 */
 	public void draw(Graphics g, int x, int y){
 		g.drawImage(images.get(frameNum), x, y, null);
-		if(playing){
-			frameNum++;
-			wrapFrameNum();
+		System.out.println(ticksToNextFrame == 0 || !playing);
+		if(ticksToNextFrame == 0 || !playing){
+			if(playing){
+				frameNum++;
+				System.out.println("nyet");
+				wrapFrameNum();
+				ticksToNextFrame = slowness;
+			}
+		}else{
+			ticksToNextFrame--;
 		}
 	}
 	
@@ -79,11 +88,20 @@ public class Animation {
 		while(true){
 			if(frameNum < 0){
 				frameNum = images.size() - frameNum;
-			}else if(frameNum > 0){
+			}else if(frameNum >= images.size()){
 				frameNum -= frameNum;
 			}else{
 				break;
 			}
 		}
+	}
+
+	public int getSlowness() {
+		return slowness;
+	}
+
+	public void setSlowness(int slowness) {
+		this.slowness = slowness;
+		ticksToNextFrame = slowness;
 	}
 }

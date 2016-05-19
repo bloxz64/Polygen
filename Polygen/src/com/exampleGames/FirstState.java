@@ -10,10 +10,9 @@ public class FirstState extends BasicState{
 
 	
 	int test = 0;
-	Animation a;
 	@Override
 	public void init() {
-		a = new Animation("src/com/res/HitlerRave");
+		
 	}
 
 	@Override
@@ -23,7 +22,7 @@ public class FirstState extends BasicState{
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		g.fillRect(100, 100, 100, 100);
+		
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class FirstState extends BasicState{
 		if(test > 60){
 			game.switchState(1);
 		}else{
-			System.out.println(test);
+			//System.out.println(test);
 		}
 	}
 
