@@ -41,6 +41,9 @@ public abstract class MainGame extends Canvas implements Runnable{
 		currentState = 0;
 		addStates();
 		initStates();
+		this.addKeyListener(new KeyListener());
+		this.addMouseListener(new MouseListener());
+		this.addMouseMotionListener(new MousePosListener());
 	}
 	
 	private void initStates() {
@@ -162,6 +165,44 @@ public abstract class MainGame extends Canvas implements Runnable{
 		states.get(currentState).startState();
 		
 		return true;
+	}
+	
+	/**
+	 * returns true if the key is being pressed and false if it's not
+	 * @param keyCode use the keycodes from KeyEvent.VK_<key name here> for the input
+	 * @return true or false depending if the key is pressed or not
+	 */
+	public boolean getKeyPressed(int keyCode){
+		KeyListener temp = (KeyListener) this.getKeyListeners()[0];
+		return temp.isKeyPressed(keyCode);
+	}
+	
+	/**
+	 * returns the x position of the mouse
+	 * @return the x position
+	 */
+	public int getMouseX(){
+		MousePosListener temp = (MousePosListener) this.getMouseMotionListeners()[0];
+		return temp.getMouseX();
+	}
+	
+	/**
+	 * returns the y position of the mouse
+	 * @return the y postion
+	 */
+	public int getMouseY(){
+		MousePosListener temp = (MousePosListener) this.getMouseMotionListeners()[0];
+		return temp.getMouseY();
+	}
+	
+	/**
+	 * gets the state of the buttons on the mouse true if it's pushed and false if it's not
+	 * @param keyCode the key code that you want to check
+	 * @return the state of the key
+	 */
+	public boolean getMouseKeyState(int keyCode){
+		MouseListener temp = (MouseListener) this.getMouseListeners()[0];
+		return temp.isPressed(keyCode);
 	}
 	
 	//Getters and setters

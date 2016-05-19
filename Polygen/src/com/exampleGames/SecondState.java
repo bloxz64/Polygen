@@ -2,6 +2,7 @@ package com.exampleGames;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import com.polygen.Animation;
 import com.polygen.BasicState;
@@ -30,7 +31,7 @@ public class SecondState extends BasicState{
 
 	@Override
 	public void update(double delta, MainGame game) {
-		x++;
+		System.out.println(game.getKeyPressed(KeyEvent.VK_SPACE));
 	}
 
 	@Override
