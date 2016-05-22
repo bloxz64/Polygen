@@ -1,21 +1,17 @@
 package com.exampleGames;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-
 import com.polygen.Animation;
 import com.polygen.BasicState;
 import com.polygen.MainGame;
 
 public class SecondState extends BasicState{
 
-	private int x = 0;
+	private int total = 0;
 	Animation a;
 	@Override
 	public void init() {
-		a = new Animation("src/com/res/HitlerRave");
-		a.setSlowness(1000);
+		a = new Animation("src/com/res/HitlerRave", 100, 100);
 	}
 
 	@Override
@@ -25,13 +21,16 @@ public class SecondState extends BasicState{
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		a.draw(g, 100, 100);
+		a.draw(g);
 		
 	}
 
 	@Override
 	public void update(double delta, MainGame game) {
-		System.out.println(game.getKeyPressed(KeyEvent.VK_SPACE));
+		total += delta;
+		a.update(delta);
+		if(total > 1000){
+		}
 	}
 
 	@Override

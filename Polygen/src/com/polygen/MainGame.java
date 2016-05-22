@@ -24,6 +24,9 @@ public abstract class MainGame extends Canvas implements Runnable{
 	private int screenWidth = 500;
 	private int screenHeight = 500;
 	private int currentState;
+	private int fps = 60;
+	private boolean paused = false;
+	private int frameCount = 0;
 	private boolean resizeable;
 	private boolean running;
 	private ArrayList<BasicState> states;
@@ -81,35 +84,51 @@ public abstract class MainGame extends Canvas implements Runnable{
 	/**
 	 * the main loop for the game
 	 */
-	public void run() {
-		long lastTime = System.nanoTime();
-		double amountOfTicks = 60d;
-		double ns = 1000000000 / amountOfTicks;
-		double delta = 0d;
-		long timer = System.currentTimeMillis();
-		int frames = 0;
-		while (running){
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			while(delta >= 1){
-				update(delta);
-				delta--;
-			}
-			if(running){
-				render();
-				frames++;
-			}
-			
-			
-			if(System.currentTimeMillis() - timer > 1000){
-				timer += 1000;
-				System.out.println("FPS: " + frames);
-				frames = 0;
-			}
-		}
-		stop();
-	}
+	public void run()
+	   {
+	      final double GAME_HERTZ = 30.0;
+	      final double TIME_BETWEEN_UPDATES = 1000000000 / GAME_HERTZ;
+	      final int MAX_UPDATES_BEFORE_RENDER = 5;
+	      double lastUpdateTime = System.nanoTime();
+	      double lastRenderTime = System.nanoTime();
+	      final double TARGET_FPS = fps;
+	      final double TARGET_TIME_BETWEEN_RENDERS = 1000000000 / TARGET_FPS;
+	      int lastSecondTime = (int) (lastUpdateTime / 1000000000);
+	      
+	      while (running)
+	      {
+	         double now = System.nanoTime();
+	         int updateCount = 0;
+	         
+	         if (!paused){
+	            while( now - lastUpdateTime > TIME_BETWEEN_UPDATES && updateCount < MAX_UPDATES_BEFORE_RENDER ){
+	               update((now - lastUpdateTime) / 1000000);
+	               
+	               lastUpdateTime += TIME_BETWEEN_UPDATES;
+	               updateCount++;
+	            }
+	            if ( now - lastUpdateTime > TIME_BETWEEN_UPDATES){
+	               lastUpdateTime = now - TIME_BETWEEN_UPDATES;
+	            }
+	            render();
+	            lastRenderTime = now;
+	         
+	            int thisSecond = (int) (lastUpdateTime / 1000000000);
+	            if (thisSecond > lastSecondTime){
+	               System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+	               fps = frameCount;
+	               frameCount = 0;
+	               lastSecondTime = thisSecond;
+	            }
+	            while ( now - lastRenderTime < TARGET_TIME_BETWEEN_RENDERS && now - lastUpdateTime < TIME_BETWEEN_UPDATES){
+	               Thread.yield();
+	               try {Thread.sleep(1);} catch(Exception e) {} 
+	            
+	               now = System.nanoTime();
+	            }
+	         }
+	      }
+	   }
 	
 	/**
 	 * renders the current state

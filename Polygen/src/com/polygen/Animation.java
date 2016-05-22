@@ -9,9 +9,17 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+/**
+ * A class to make the painful process of loading and playing animation easier for the user
+ * @author Owen Anderson, Christopher Lapena
+ *
+ */
+
 public class Animation {
-	private ArrayList<Image> images = new ArrayList<Image>();
-	private int frameNum = 0, slowness = 500, ticksToNextFrame;
+	
+	//Global varibles
+	private ArrayList<Image> images = new ArrayList<Image>(); //the list that will store the frames of the animation
+	private int frameNum = 0, speed = 5, x, y, timeToNextFrame = 0;
 	private Rectangle bounds;
 	private boolean playing = true;
 	
@@ -19,8 +27,10 @@ public class Animation {
 	 * Creates a new animation at the given path
 	 * @param path the folder with the png images in them titled from 0 to however many frames there are in the gif
 	 */
-	public Animation(String path){
+	public Animation(String path, int x, int y){
 		int i = 0;
+		this.x = x;
+		this.y = y;
 		while(true){
 			try {
 				images.add(ImageIO.read(new File(path + "/" + i + ".png")));
@@ -29,7 +39,12 @@ public class Animation {
 				break;
 			}
 		}
-		System.out.println(i + " images loaded");
+		if(images.get(0) != null){
+			bounds = new Rectangle(x, y, images.get(0).getWidth(null), images.get(0).getHeight(null));
+			System.out.println(i + " images loaded");
+		}else{
+			System.out.println("ERROR NO IMAGES LOADED");
+		}
 	}
 	
 	/**
@@ -38,21 +53,25 @@ public class Animation {
 	 * @param x the x cord
 	 * @param y the y cord
 	 */
-	public void draw(Graphics g, int x, int y){
+	public void draw(Graphics g){
 		g.drawImage(images.get(frameNum), x, y, null);
-		System.out.println(ticksToNextFrame == 0 || !playing);
-		if(ticksToNextFrame == 0 || !playing){
+	}
+	
+	public void update(double delta){
+		if(timeToNextFrame <= 0 || !playing){
 			if(playing){
 				frameNum++;
-				System.out.println("nyet");
 				wrapFrameNum();
-				ticksToNextFrame = slowness;
+				timeToNextFrame = 1000 / speed;
 			}
 		}else{
-			ticksToNextFrame--;
+			timeToNextFrame -= delta;
 		}
 	}
 	
+	/**
+	 * stops the animation from playing
+	 */
 	public void stopAnimation(){
 		playing = false;
 	}
@@ -96,12 +115,16 @@ public class Animation {
 		}
 	}
 
-	public int getSlowness() {
-		return slowness;
+	public int getSpeed() {
+		return speed;
 	}
 
-	public void setSlowness(int slowness) {
-		this.slowness = slowness;
-		ticksToNextFrame = slowness;
+	public void setSpeed(int slowness) {
+		this.speed = slowness;
+		timeToNextFrame = 1000 / speed;
+	}
+
+	public Rectangle getBounds() {
+		return bounds;
 	}
 }
