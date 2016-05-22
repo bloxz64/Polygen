@@ -12,6 +12,8 @@ public class SecondState extends BasicState{
 	@Override
 	public void init() {
 		a = new Animation("src/com/res/HitlerRave", 100, 100);
+		a.setSpeed(3);
+		System.out.println(-361 % -360);
 	}
 
 	@Override
