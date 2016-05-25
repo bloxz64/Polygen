@@ -14,9 +14,9 @@ public class Menu extends BasicState{
 	
 	@Override
 	public void init() {
-		playButton = loadImage("src/TugOfWar/PlayButton.png");
-		instructionsButton = loadImage("src/TugOfWar/InstructionsButton.png");
-		exitButton = loadImage("src/TugOfWar/ExitButton.png");
+		playButton = loadImage("TugOfWar/PlayButton.png");
+		instructionsButton = loadImage("TugOfWar/InstructionsButton.png");
+		exitButton = loadImage("TugOfWar/ExitButton.png");
 	}
 
 	@Override
