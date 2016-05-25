@@ -1,4 +1,4 @@
-package TugOfWar;
+package com.TugOfWar;
 
 import com.polygen.MainGame;
 
