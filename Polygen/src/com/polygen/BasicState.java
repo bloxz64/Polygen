@@ -1,7 +1,12 @@
 package com.polygen;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public abstract class BasicState {
 
@@ -87,5 +92,19 @@ public abstract class BasicState {
 	 */
 	public ArrayList<GameObject> getObjectList(){
 		return objects;
+	}
+	
+	/**
+	 * Load an image
+	 * @param path the path
+	 * @return the image
+	 */
+	public Image loadImage(String path){
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

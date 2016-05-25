@@ -3,6 +3,7 @@ package com.polygen;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -214,6 +215,10 @@ public abstract class MainGame extends Canvas implements Runnable{
 		return temp.getMouseY();
 	}
 	
+	public static int getCenter(int large, int small){
+		return (large / 2) - (small / 2);
+	}
+	
 	/**
 	 * gets the state of the buttons on the mouse true if it's pushed and false if it's not
 	 * @param keyCode the key code that you want to check
@@ -256,6 +261,12 @@ public abstract class MainGame extends Canvas implements Runnable{
 
 	public void setResizeable(boolean resizeable) {
 		this.resizeable = resizeable;
+	}
+	
+	public void setBasicWindowInfo(int screenWidth, int screenHeight, String title){
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		this.title = title;
 	}
 	
 }
