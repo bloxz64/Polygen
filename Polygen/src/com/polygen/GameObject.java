@@ -10,8 +10,50 @@ public abstract class GameObject {
 	private int angle;
 	private Point center;
 	
+	public static boolean checkCollision(GameObject obj1, GameObject obj2){
+		if (obj1.getPoly().getBounds().intersects(obj2.getPoly().getBounds())){
+			for (int is = 0; is < obj1.getPoly().npoints; is++){
+				for (int isnt = 0; isnt < obj2.getPoly().npoints; isnt++){
+					int a = obj1.getPoly().ypoints[is] - obj1.getPoly().ypoints[is+1];
+					int b = obj1.getPoly().xpoints[is+1] - obj1.getPoly().xpoints[is];
+					int c = (a * obj1.getPoly().xpoints[is]) + (b * obj1.getPoly().ypoints[is]);
+					int A = obj2.getPoly().ypoints[is] - obj2.getPoly().ypoints[is+1];
+					int B = obj2.getPoly().xpoints[is+1] - obj2.getPoly().xpoints[is];
+					int C = (A * obj2.getPoly().xpoints[is]) + (B * obj2.getPoly().ypoints[is]);
+					
+					int x = ((c * B) - (C * b))/((a * B) - (A * b));
+					int y = ((a * C) - (A * c))/((a * B) - (A * b));
+					
+					if ((x > obj1.getPoly().xpoints[is] && x < obj1.getPoly().xpoints[is+1]) || (x < obj1.getPoly().xpoints[is] && x > obj1.getPoly().xpoints[is+1])){
+						if ((y > obj1.getPoly().ypoints[is] && y < obj1.getPoly().ypoints[is+1]) || (y < obj1.getPoly().ypoints[is] && y > obj1.getPoly().ypoints[is+1])){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static void doOnTag((method, (args) -> method(args), String tag){	//invoke!!
+		for (i : objects){
+			if (i.hasTag(tag)){
+				i.method(args[]);
+			}
+		}
+	}
+	
 	public GameObject(String[] tags){
 		this.tags = tags;
+	}
+	
+	public boolean hasTag(String tag){
+		for (String i : tags){
+			if (i.equals(tag)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public abstract void render(Graphics g, MainGame game);
