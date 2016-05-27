@@ -14,7 +14,7 @@ import com.polygen.MainGame;
  */
 public class Instructions extends BasicState{
 
-	//creates global varibles
+	//creates global variables
 	private ButtonObject back;
 	private Image img;
 	

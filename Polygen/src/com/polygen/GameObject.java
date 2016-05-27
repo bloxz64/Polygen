@@ -1,11 +1,9 @@
   package com.polygen;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
-
-import com.TugOfWar.Game;
 
 /**
  * a method for the skeleton for all the other objects that can be added to the state
@@ -17,8 +15,9 @@ public abstract class GameObject {
 	
 	private String[] tags;
 	private Polygon poly;
-	private int angle;
+	private int angle, spriteAngle;
 	private Point center;
+	private Image sprite;
 	
 	/**
 	 * a method that lets you check collision without calling it on an object
@@ -93,6 +92,11 @@ public abstract class GameObject {
 	 * @param game the game object
 	 */
 	public abstract void update(double delta, MainGame game);
+	
+	public void backEndUpdate(double delta, MainGame game){
+		updateSpriteRotation();
+		update(delta, game);
+	}
 	
 	/**
 	 * sets the bounds of the object as a set of points
@@ -275,5 +279,37 @@ public abstract class GameObject {
 	 */
 	public String[] getTags(){
 		return tags;
+	}
+	
+	/**
+	 * sets the objects sprite
+	 * @param sprite the sprite that will be set
+	 */
+	public void setSprite(Image sprite){
+		this.sprite = sprite;
+	}
+	
+	/**
+	 * gets the sprite from this object
+	 * @return the sprite as an image object
+	 */
+	public Image getSprite() {
+		return this.sprite;
+	}
+	
+	public void setSpriteAngle(int newAngle){
+		spriteAngle = newAngle;
+	}
+	
+	public void changeSpriteAngle(int deltaAngle) {
+		spriteAngle += deltaAngle;
+	}
+	
+	public int getSpriteAngle() {
+		return spriteAngle;
+	}
+	
+	private void updateSpriteRotation() {
+		
 	}
 }
