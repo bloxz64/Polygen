@@ -13,6 +13,8 @@ public class Game extends MainGame{
 	@Override
 	public void addStates() {
 		addState(new Menu());
+		addState(new PlayGame());
+		addState(new Instructions());
 	}
 
 }

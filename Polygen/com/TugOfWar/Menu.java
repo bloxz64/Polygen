@@ -58,7 +58,7 @@ public class Menu extends BasicState{
 			
 		}
 		if(((ButtonObject) getObject(1)).clicked()){
-			
+			game.switchState(2);
 		}
 		if(((ButtonObject) getObject(2)).clicked()){
 			game.stopGame();

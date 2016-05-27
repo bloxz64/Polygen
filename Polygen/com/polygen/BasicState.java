@@ -40,11 +40,11 @@ public abstract class BasicState {
 	 * @param game the game object
 	 */
 	public void backEndRender(Graphics g, MainGame game){
-		render(g, game);
-		
 		for(int i = 0; i < objects.size(); i++){
 			objects.get(i).render(g, game);
 		}
+		
+		render(g, game);
 	}
 	
 	/**
@@ -60,11 +60,11 @@ public abstract class BasicState {
 	 * @param game the game object
 	 */
 	public void backEndUpdate(double delta, MainGame game){
-		update(delta, game);
-		
 		for(int i = 0; i < objects.size(); i++){
 			objects.get(i).update(delta, game);
 		}
+		
+		update(delta, game);
 	}
 	
 	/**
