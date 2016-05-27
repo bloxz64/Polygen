@@ -23,26 +23,25 @@ public class Menu extends BasicState{
 	@Override
 	public void init(MainGame game) {
 		playButton = new ButtonObject("src/com/TugOfWar/PlayButton.png");
-		playButton.setX(Game.getCenter(game.getScreenWidth(), (int) playButton.getWidth()));
-		playButton.setY(100);
+		playButton.setPos(Game.getCenter(game.getScreenWidth(), (int) playButton.getWidth()), 100);
+		
 		instructionsButton = new ButtonObject("src/com/TugOfWar/InstructionsButton.png");
-		instructionsButton.setX(Game.getCenter(game.getScreenWidth(), (int) instructionsButton.getWidth()));
-		instructionsButton.setY(200);
+		instructionsButton.setPos(Game.getCenter(game.getScreenWidth(), (int) instructionsButton.getWidth()), 200);
+		
 		exitButton = new ButtonObject("src/com/TugOfWar/ExitButton.png");
-		exitButton.setX(Game.getCenter(game.getScreenWidth(), (int) exitButton.getWidth()));
-		exitButton.setY(300);
+		exitButton.setPos(Game.getCenter(game.getScreenWidth(), (int) exitButton.getWidth()), 300);
+		
 		thumbsUp = Game.loadImage("src/com/TugOfWar/ThumbsUP.png");
 		shrug = Game.loadImage("src/com/TugOfWar/Shrug.png");
 		fontTitle = new Font(Font.SERIF, Font.PLAIN, 40);
+		
 		addObject(playButton);
 		addObject(instructionsButton);
 		addObject(exitButton);
 	}
 
 	@Override
-	public void startState() {
-		
-	}
+	public void startState() {}
 
 	@Override
 	public void render(Graphics g, MainGame game) {
@@ -66,8 +65,6 @@ public class Menu extends BasicState{
 	}
 
 	@Override
-	public void stopState() {
-		
-	}
+	public void stopState() {}
 
 }

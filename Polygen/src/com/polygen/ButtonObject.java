@@ -118,6 +118,17 @@ public class ButtonObject extends GameObject{
 	}
 	
 	/**
+	 * sets both the x and y in one go
+	 * @param x the x cord that will be set
+	 * @param y the y cord that will be set
+	 */
+	public void setPos(int x, int y){
+		this.x = x;
+		this.y = y;
+		refreshBounds();
+	}
+	
+	/**
 	 * returns weather the mouse is currently over the button
 	 * @return true if it is false if not
 	 */

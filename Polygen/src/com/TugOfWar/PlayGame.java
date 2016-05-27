@@ -11,6 +11,7 @@ import com.polygen.MainGame;
 
 public class PlayGame extends BasicState{
 
+	//varibles for game
 	private Image tug, yay;
 	private int x = 0, timer = 3000;
 	private boolean capsPressed, enterPressed, gameOver;
@@ -32,6 +33,7 @@ public class PlayGame extends BasicState{
 	@Override
 	public void render(Graphics g, MainGame game) {
 		if(gameOver){
+			g.setFont(victoryFont);
 			g.drawString(victoryText, Game.getCenter(game.getWidth(), g.getFontMetrics().stringWidth(victoryText)), 50);
 			g.drawImage(yay, Game.getCenter(game.getScreenWidth(), yay.getWidth(null)), 100, null);
 		}else{
@@ -58,14 +60,14 @@ public class PlayGame extends BasicState{
 			}
 			checkWin();
 			if(game.getKeyPressed(KeyEvent.VK_CAPS_LOCK) && !capsPressed){
-				x -= 5;
+				x -= 25;
 				capsPressed = true;
 			}else if(!game.getKeyPressed(KeyEvent.VK_CAPS_LOCK)){
 				capsPressed = false;
 			}
 			
 			if(game.getKeyPressed(KeyEvent.VK_ENTER) && !enterPressed){
-				x += 5;
+				x += 25;
 				enterPressed = true;
 			}else if(!game.getKeyPressed(KeyEvent.VK_ENTER)){
 				enterPressed = false;
