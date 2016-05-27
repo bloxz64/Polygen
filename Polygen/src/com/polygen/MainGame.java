@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 
 /**
  * This is the main game that will be extended for the game
- * Date Created: 5/9/2016
  * @author Owen Anderson
  *
  */
@@ -56,12 +55,18 @@ public abstract class MainGame extends Canvas implements Runnable{
 		this.addMouseMotionListener(new MousePosListener());
 	}
 	
+	/**
+	 * runs all of the state's init methods
+	 */
 	private void initStates() {
 		for(int i = 0; i < states.size(); i++){
 			states.get(i).init(this);
 		}
 	}
 
+	/**
+	 * starts the game
+	 */
 	public void startGame(){
 		init();
 		window = new GameWindow(title, screenWidth, screenHeight, this);
@@ -91,8 +96,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 	/**
 	 * the main loop for the game
 	 */
-	public void run()
-	   {
+	public void run(){
 	      final double GAME_HERTZ = 30.0;
 	      final double TIME_BETWEEN_UPDATES = 1000000000 / GAME_HERTZ;
 	      final int MAX_UPDATES_BEFORE_RENDER = 5;
@@ -102,8 +106,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 	      final double TARGET_TIME_BETWEEN_RENDERS = 1000000000 / TARGET_FPS;
 	      int lastSecondTime = (int) (lastUpdateTime / 1000000000);
 	      
-	      while (running)
-	      {
+	      while (running){
 	         double now = System.nanoTime();
 	         int updateCount = 0;
 	         
@@ -249,6 +252,9 @@ public abstract class MainGame extends Canvas implements Runnable{
 		return null;
 	}
 	
+	/**
+	 * stops the game and all the other shit attached to it
+	 */
 	public void stopGame() {
 		states.get(currentState).stopState();
 		window.getFrame().setVisible(false);

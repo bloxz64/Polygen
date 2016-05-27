@@ -5,6 +5,11 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/**
+ * the class that handles the JFrame that the game in contained within
+ * @author Owen Anderson, Christopher Lapena
+ *
+ */
 public class GameWindow extends Canvas{
 
 	private static final long serialVersionUID = -6316988449972470286L;

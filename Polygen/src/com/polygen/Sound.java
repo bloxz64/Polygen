@@ -19,7 +19,10 @@ public class Sound {
 	
 	public Clip sound;
 
-	
+	/**
+	 * creates object using the path of the sounds as a string
+	 * @param path the path to the sound
+	 */
 	public Sound(String path){
 		try {
 			sound = AudioSystem.getClip();
@@ -37,6 +40,10 @@ public class Sound {
 		}
 	}
 	
+	/**
+	 * creates the object using a URL as the sound loading method
+	 * @param url the URL to the sound file
+	 */
 	public Sound(URL url){
 		try {
 			sound = AudioSystem.getClip();
@@ -69,10 +76,10 @@ public class Sound {
 	}
 	
 	/**
-	 * loops the audio file a given number of times -1 for infinite
+	 * plays the audio for a given number of loops -1 for forever
 	 * @param loops
 	 */
 	public void loop(int loops){
-		
+		sound.loop(loops);
 	}
 }

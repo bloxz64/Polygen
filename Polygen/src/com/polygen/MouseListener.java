@@ -4,8 +4,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
+/**
+ * the class the detects the mouse button presses works nearly identical to KeyListener
+ * @author Owen Anderson, Christopher Lapena
+ *
+ */
 public class MouseListener extends MouseAdapter{
-	private HashMap<Integer, Boolean> buttons = new HashMap<Integer, Boolean>(0);
+	private HashMap<Integer, Boolean> buttons = new HashMap<Integer, Boolean>(0); //the list that the key states will be stored in
 
 	public void mouseClicked(MouseEvent e) {
 		

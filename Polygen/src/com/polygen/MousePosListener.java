@@ -2,7 +2,11 @@ package com.polygen;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-
+/**
+ * the class the updates the position of the mouse in the game
+ * @author Owen Anderson, Christopher Lapena
+ *
+ */
 public class MousePosListener extends MouseMotionAdapter{
 	private int x, y = 0;
 
