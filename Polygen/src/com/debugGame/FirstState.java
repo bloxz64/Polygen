@@ -1,18 +1,18 @@
-package com.exampleGames;
+package com.debugGame;
 
 import java.awt.Graphics;
+
 import com.polygen.Animation;
 import com.polygen.BasicState;
 import com.polygen.MainGame;
 
-public class SecondState extends BasicState{
+public class FirstState extends BasicState{
 
-	private int total = 0;
-	Animation a;
+	
+	int test = 0;
 	@Override
 	public void init(MainGame game) {
-		a = new Animation("src/com/res/HitlerRave", 100, 100);
-		a.setSpeed(3);
+		
 	}
 
 	@Override
@@ -22,15 +22,16 @@ public class SecondState extends BasicState{
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		a.draw(g);
 		
 	}
 
 	@Override
 	public void update(double delta, MainGame game) {
-		total += delta;
-		a.update(delta);
-		if(total > 1000){
+		test++;
+		if(test > 60){
+			game.switchState(1);
+		}else{
+			//System.out.println(test);
 		}
 	}
 

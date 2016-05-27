@@ -1,4 +1,4 @@
-package com.exampleGames;
+package com.debugGame;
 
 import com.polygen.MainGame;
 

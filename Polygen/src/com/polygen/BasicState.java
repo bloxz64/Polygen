@@ -129,6 +129,7 @@ public abstract class BasicState {
 					} catch (InvocationTargetException e) {
 						e.printStackTrace();
 					}
+					break;
 				}
 				if(!objects.get(i).hasTag(tags[o])){
 					break;
