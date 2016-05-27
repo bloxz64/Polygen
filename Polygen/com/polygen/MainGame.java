@@ -4,8 +4,13 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /**
  * This is the main game that will be extended for the game
@@ -31,6 +36,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 	private boolean resizeable;
 	private boolean running;
 	private ArrayList<BasicState> states;
+	private GameWindow window;
 
 	/**
 	 * Method to add the states based on what the creator of the subclass has and only runs on start of game
@@ -52,13 +58,13 @@ public abstract class MainGame extends Canvas implements Runnable{
 	
 	private void initStates() {
 		for(int i = 0; i < states.size(); i++){
-			states.get(i).init();
+			states.get(i).init(this);
 		}
 	}
 
 	public void startGame(){
 		init();
-		new GameWindow(title, screenWidth, screenHeight, this);
+		window = new GameWindow(title, screenWidth, screenHeight, this);
 	}
 	
 	/**
@@ -147,7 +153,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		g.clearRect(0, 0, screenWidth, screenHeight);
-		states.get(currentState).render(g, this);
+		states.get(currentState).backEndRender(g, this);
 		
 		g.dispose();
 		bs.show();
@@ -157,7 +163,7 @@ public abstract class MainGame extends Canvas implements Runnable{
 	 * updates the current state
 	 */
 	private void update(double delta) {
-		states.get(currentState).update(delta, this);
+		states.get(currentState).backEndUpdate(delta, this);
 	}
 	
 	/**
@@ -227,6 +233,29 @@ public abstract class MainGame extends Canvas implements Runnable{
 	public boolean getMouseKeyState(int keyCode){
 		MouseListener temp = (MouseListener) this.getMouseListeners()[0];
 		return temp.isPressed(keyCode);
+	}
+	
+	/**
+	 * Loads an image for the user to use
+	 * @param path the path to the image
+	 * @return the image that was loaded
+	 */
+	public static Image loadImage(String path){
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void stopGame() {
+		states.get(currentState).stopState();
+		System.out.println("poot");
+		window.getFrame().setVisible(false);
+		window.getFrame().dispose();
+		System.exit(0);
+		this.stop();
 	}
 	
 	//Getters and setters

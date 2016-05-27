@@ -11,7 +11,7 @@ public class FirstState extends BasicState{
 	
 	int test = 0;
 	@Override
-	public void init() {
+	public void init(MainGame game) {
 		
 	}
 

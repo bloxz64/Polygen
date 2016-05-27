@@ -1,22 +1,42 @@
 package com.TugOfWar;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.text.AttributedCharacterIterator;
 
 import com.polygen.BasicState;
+import com.polygen.ButtonObject;
 import com.polygen.MainGame;
 
 public class Menu extends BasicState{
 
-	Image playButton;
-	Image instructionsButton;
-	Image exitButton;
+	//images for menu
+	private ButtonObject playButton;
+	private ButtonObject instructionsButton;
+	private ButtonObject exitButton;
+	private Image thumbsUp;
+	private Image shrug;
+	
+	private Font fontTitle;
 	
 	@Override
-	public void init() {
-		playButton = loadImage("TugOfWar/PlayButton.png");
-		instructionsButton = loadImage("TugOfWar/InstructionsButton.png");
-		exitButton = loadImage("TugOfWar/ExitButton.png");
+	public void init(MainGame game) {
+		playButton = new ButtonObject("com/TugOfWar/PlayButton.png");
+		playButton.setX(Game.getCenter(game.getScreenWidth(), (int) playButton.getWidth()));
+		playButton.setY(100);
+		instructionsButton = new ButtonObject("com/TugOfWar/InstructionsButton.png");
+		instructionsButton.setX(Game.getCenter(game.getScreenWidth(), (int) instructionsButton.getWidth()));
+		instructionsButton.setY(200);
+		exitButton = new ButtonObject("com/TugOfWar/ExitButton.png");
+		exitButton.setX(Game.getCenter(game.getScreenWidth(), (int) exitButton.getWidth()));
+		exitButton.setY(300);
+		thumbsUp = Game.loadImage("com/TugOfWar/ThumbsUP.png");
+		shrug = Game.loadImage("com/TugOfWar/Shrug.png");
+		fontTitle = new Font(Font.SERIF, Font.PLAIN, 40);
+		addObject(playButton);
+		addObject(instructionsButton);
+		addObject(exitButton);
 	}
 
 	@Override
@@ -26,14 +46,23 @@ public class Menu extends BasicState{
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		g.drawImage(playButton, Game.getCenter(game.getScreenWidth(), playButton.getWidth(null)), 100, null);
-		g.drawImage(instructionsButton, Game.getCenter(game.getScreenWidth(), instructionsButton.getWidth(null)), 200, null);
-		g.drawImage(exitButton, Game.getCenter(game.getScreenWidth(), exitButton.getWidth(null)), 300, null);
+		g.setFont(fontTitle);
+		g.drawString("TUG OF WAR", Game.getCenter(game.getScreenWidth(), g.getFontMetrics().stringWidth("TUG OF WAR")), 50);
+		g.drawImage(shrug, 650, 100, null);
+		g.drawImage(thumbsUp, 100, 100, null);
 	}
 
 	@Override
 	public void update(double delta, MainGame game) {
-		
+		if(((ButtonObject) getObject(0)).clicked()){
+			
+		}
+		if(((ButtonObject) getObject(1)).clicked()){
+			
+		}
+		if(((ButtonObject) getObject(2)).clicked()){
+			game.stopGame();
+		}
 	}
 
 	@Override

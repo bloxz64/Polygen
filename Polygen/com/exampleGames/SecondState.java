@@ -10,7 +10,7 @@ public class SecondState extends BasicState{
 	private int total = 0;
 	Animation a;
 	@Override
-	public void init() {
+	public void init(MainGame game) {
 		a = new Animation("src/com/res/HitlerRave", 100, 100);
 		a.setSpeed(3);
 	}

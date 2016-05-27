@@ -8,9 +8,11 @@ import javax.swing.JFrame;
 public class GameWindow extends Canvas{
 
 	private static final long serialVersionUID = -6316988449972470286L;
+	
+	private JFrame j;
 
 	public GameWindow(String title, int width, int height, MainGame game){
-		JFrame j = new JFrame(title);
+		j = new JFrame(title);
 		Dimension d = new Dimension(width, height);
 		
 		//setting size of window
@@ -25,5 +27,9 @@ public class GameWindow extends Canvas{
 		j.setVisible(true);
 		game.start();
 		
+	}
+	
+	public JFrame getFrame(){
+		return j;
 	}
 }

@@ -3,6 +3,9 @@
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
+
+import com.TugOfWar.Game;
 
 public abstract class GameObject {
 	private String[] tags;
@@ -35,16 +38,12 @@ public abstract class GameObject {
 		return false;
 	}
 	
-	public static void doOnTag((method, (args) -> method(args), String tag){	//invoke!!
-		for (i : objects){
-			if (i.hasTag(tag)){
-				i.method(args[]);
-			}
-		}
-	}
-	
 	public GameObject(String[] tags){
 		this.tags = tags;
+	}
+	
+	public GameObject(){
+		
 	}
 	
 	public boolean hasTag(String tag){
@@ -64,6 +63,8 @@ public abstract class GameObject {
 		poly = new Polygon(xValues, yValues, xValues.length);
 		poly.addPoint(xValues[0], yValues[0]);
 	}
+	
+	
 	
 	public Polygon getPoly(){
 		return poly;
@@ -169,10 +170,17 @@ public abstract class GameObject {
 	}
 
 	public Point getCenter() {
+		if(center == null){
+			center = getCentroid();
+		}
 		return center;
 	}
 
 	public void setCenter(Point center) {
 		this.center = center;
+	}
+	
+	public String[] getTags(){
+		return tags;
 	}
 }

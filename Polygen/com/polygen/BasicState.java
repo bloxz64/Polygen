@@ -1,21 +1,24 @@
 package com.polygen;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 
 public abstract class BasicState {
 
 	private ArrayList<GameObject> objects;
 	
+	public BasicState(){
+		objects = new ArrayList<GameObject>();
+	}
+	
 	/**
 	 * runs when the game starts and loads resources 
+	 * @param game 
 	 */
-	public abstract void init();
+	public abstract void init(MainGame game);
 	
 	
 	/**
@@ -56,7 +59,7 @@ public abstract class BasicState {
 	 * @param delta the time between updates
 	 * @param game the game object
 	 */
-	public void backEndRender(double delta, MainGame game){
+	public void backEndUpdate(double delta, MainGame game){
 		update(delta, game);
 		
 		for(int i = 0; i < objects.size(); i++){
@@ -94,17 +97,30 @@ public abstract class BasicState {
 		return objects;
 	}
 	
-	/**
-	 * Load an image
-	 * @param path the path
-	 * @return the image
-	 */
-	public Image loadImage(String path){
-		try {
-			return ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void doOnTag(String methodName, String[] tags){
+		Method method;
+		for(int i = 0; i < objects.size(); i++){
+			for(int o = 0; o != tags.length; o++){
+				if(o == tags.length){
+					try {
+						method = objects.get(i).getClass().getMethod("methodName");
+						method.invoke(objects.get(i));
+					} catch (NoSuchMethodException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+				if(!objects.get(i).hasTag(tags[o])){
+					break;
+				}
+			}
 		}
-		return null;
 	}
 }
