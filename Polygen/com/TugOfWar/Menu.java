@@ -55,7 +55,7 @@ public class Menu extends BasicState{
 	@Override
 	public void update(double delta, MainGame game) {
 		if(((ButtonObject) getObject(0)).clicked()){
-			
+			game.switchState(1);
 		}
 		if(((ButtonObject) getObject(1)).clicked()){
 			game.switchState(2);

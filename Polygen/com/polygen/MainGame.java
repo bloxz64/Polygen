@@ -251,7 +251,6 @@ public abstract class MainGame extends Canvas implements Runnable{
 	
 	public void stopGame() {
 		states.get(currentState).stopState();
-		System.out.println("poot");
 		window.getFrame().setVisible(false);
 		window.getFrame().dispose();
 		System.exit(0);
