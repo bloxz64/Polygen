@@ -9,6 +9,11 @@ import java.awt.event.KeyEvent;
 import com.polygen.BasicState;
 import com.polygen.MainGame;
 
+/**
+ * the main game class that runs the actual game
+ * @author Owen Anderson
+ *
+ */
 public class PlayGame extends BasicState{
 
 	//varibles for game
@@ -20,23 +25,25 @@ public class PlayGame extends BasicState{
 	
 	@Override
 	public void init(MainGame game) {
+		//loads images for game
 		tug = Game.loadImage("src/com/TugOfWar/TugOfWar.png");
 		yay = Game.loadImage("src/com/TugOfWar/YAY.png");
+		
+		//loads font for game win screen and countdown
 		victoryFont = new Font(Font.SERIF, Font.BOLD, 50);
 	}
 
 	@Override
-	public void startState() {
-		
-	}
+	public void startState() {}
 
 	@Override
 	public void render(Graphics g, MainGame game) {
-		if(gameOver){
-			g.setFont(victoryFont);
+		if(gameOver){ //section for once the game is over
+			g.setFont(victoryFont);//sets font 
+			
 			g.drawString(victoryText, Game.getCenter(game.getWidth(), g.getFontMetrics().stringWidth(victoryText)), 50);
 			g.drawImage(yay, Game.getCenter(game.getScreenWidth(), yay.getWidth(null)), 100, null);
-		}else{
+		}else{ //section for the playing of the game
 			g.setFont(victoryFont);
 			g.drawImage(tug, x, Game.getCenter(game.getScreenHeight(), tug.getHeight(null)), null);
 			g.setColor(Color.RED);
@@ -54,11 +61,15 @@ public class PlayGame extends BasicState{
 	@Override
 	public void update(double delta, MainGame game) {
 		if(!gameOver){
+			//runs the 3 2 1 timer at the start
 			if(timer > 0){
 				timer -= delta;
 				return;
 			}
-			checkWin();
+			
+			checkWin(); //checks if the game is over and who won
+			
+			//makes sure that the caps lock has been pressed down and release before moving it agian
 			if(game.getKeyPressed(KeyEvent.VK_CAPS_LOCK) && !capsPressed){
 				x -= 25;
 				capsPressed = true;
@@ -66,6 +77,7 @@ public class PlayGame extends BasicState{
 				capsPressed = false;
 			}
 			
+			//same checking method as capslock 
 			if(game.getKeyPressed(KeyEvent.VK_ENTER) && !enterPressed){
 				x += 25;
 				enterPressed = true;
@@ -75,6 +87,9 @@ public class PlayGame extends BasicState{
 		}
 	}
 
+	/**
+	 * checks if the game is over and who won
+	 */
 	private void checkWin() {
 		if(x < -250){
 			player1Win();
@@ -87,19 +102,23 @@ public class PlayGame extends BasicState{
 		
 	}
 
+	/**
+	 * sets the win message for player one
+	 */
 	private void player1Win() {
 		victoryText = "Player One WINS!";
 		gameOver = true;
 	}
 
+	/**
+	 * sets win message for player two
+	 */
 	private void player2Win() {
 		victoryText = "Player Two WINS!";
 		gameOver = true;
 	}
 
 	@Override
-	public void stopState() {
-		
-	}
+	public void stopState() {}
 
 }
