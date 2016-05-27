@@ -5,11 +5,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+/**
+ * the basic skeleton that all the states are extended from (by the user)
+ * @author Owen Anderson, Christopher Lapena
+ *
+ */
 
 public abstract class BasicState {
 
-	private ArrayList<GameObject> objects;
+	private ArrayList<GameObject> objects; //a list of the objects that will be drawn and updated
 	
+	/**
+	 * empty contructor just for initing array 
+	 */
 	public BasicState(){
 		objects = new ArrayList<GameObject>();
 	}
@@ -97,6 +105,11 @@ public abstract class BasicState {
 		return objects;
 	}
 	
+	/**
+	 * calls a method of choice on all objects with a given set of tags
+	 * @param methodName the name of the method that is being called
+	 * @param tags the tags that the method will be called on
+	 */
 	public void doOnTag(String methodName, String[] tags){
 		Method method;
 		for(int i = 0; i < objects.size(); i++){
