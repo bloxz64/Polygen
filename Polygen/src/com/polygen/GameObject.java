@@ -280,6 +280,17 @@ public abstract class GameObject {
 	public String[] getTags(){
 		return tags;
 	}
+// add documentation
+	public void setTags(String[] tags){
+		this.tags = tags;
+	}
+	
+	/*
+	 * please tell me this works
+	 */
+	public void addTag(string tag){
+		tags = tags + tag;
+	}
 	
 	/**
 	 * sets the objects sprite

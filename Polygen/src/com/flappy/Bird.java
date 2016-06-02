@@ -9,11 +9,12 @@ import com.polygen.MainGame;
 public class Bird extends GameObject{
 
 	private Image image;
-	private int y;
+	private int y, gravity;
 	
 	public Bird(Image image){
 		this.image = image;
 		y = 250;
+		gravity = 0;
 	}
 	
 	@Override
@@ -27,6 +28,8 @@ public class Bird extends GameObject{
 	}
 
 	@Override
-	public void update(double delta, MainGame game) {}
-
+	public void update(double delta, MainGame game) {
+		y += (gravity*delta)/100d;
+	}
+		
 }
