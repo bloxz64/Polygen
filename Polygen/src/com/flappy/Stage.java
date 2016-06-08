@@ -14,9 +14,9 @@ public class Stage extends BasicState{
 	
 	@Override
 	public void init(MainGame game) {
-		birdImage = Main.loadImage(path);
-		backgroundImage = Main.loadImage(path);
-		pipeImage = Main.loadImage(path);
+		birdImage = Main.loadImage("src/com/flappy/Bird.png");
+		backgroundImage = Main.loadImage("src/com/flappy/Background.png");
+		pipeImage = Main.loadImage("src/com/flappy/Pipe.png");
 		font = new Font(Font.SERIF, Font.PLAIN, 40);
 		bird = new Bird(birdImage);
 	}
