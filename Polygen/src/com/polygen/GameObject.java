@@ -192,6 +192,7 @@ public abstract class GameObject {
 	/**
 	 * gets the top left corner of the bounding box's y cord
 	 * @return
+	 * 
 	 */
 	public double getY(){
 		return poly.getBounds().getY();
