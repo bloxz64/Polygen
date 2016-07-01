@@ -9,9 +9,10 @@ import com.polygen.*;
 public class Pipe extends GameObject{
 	
 	public Pipe(Image image, int x, int y){
-		setTags(new String[] {"pipe", "touch"});
+		super(new String[] {"pipe", "touch"});
+		setBounds(new int[] {0, 0, 25, 25}, new int[] {0, 100, 100, 0});
 		setSprite(image);
-		setPos(x, y);		
+		setPos(x, y);
 	}
 	
 	@Override
