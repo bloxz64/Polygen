@@ -1,4 +1,4 @@
-package com.flappy;
+package com.dnd;
 
 import java.awt.Graphics;
 
