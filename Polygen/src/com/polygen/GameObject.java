@@ -288,8 +288,10 @@ public abstract class GameObject {
 	/*
 	 * please tell me this works
 	 */
-	public void addTag(string tag){
-		tags = tags + tag;
+	public void addTag(String tag){
+		String temp[] = new String[tags.length + 1];
+		temp[temp.length - 1] = tag;
+		tags = temp;
 	}
 	
 	/**
