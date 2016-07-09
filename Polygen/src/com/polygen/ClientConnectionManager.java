@@ -15,7 +15,7 @@ public class ClientConnectionManager {
 	int port;
 	PrintWriter out;
 	BufferedReader in;
-	boolean running = true;
+	private boolean running = true, connected;
 	LinkedList<String> messages;
 	
 	public ClientConnectionManager(int port, String adress){
@@ -36,6 +36,7 @@ public class ClientConnectionManager {
 					sock = new Socket(adress, port);
 					out = new PrintWriter(sock.getOutputStream(), true);
 					in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+					connected = true;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -87,6 +88,10 @@ public class ClientConnectionManager {
 	
 	public int getNumOfMessagesInQueue(){
 		return messages.size();
+	}
+	
+	public boolean getConnected(){
+		return connected;
 	}
 	
 }

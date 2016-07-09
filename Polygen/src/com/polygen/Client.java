@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class Client {
 	
@@ -37,6 +38,7 @@ public class Client {
 			while(running){
 				try {
 					String message = in.readLine();
+					System.out.println(message);
 					messages.add(message);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -52,8 +54,11 @@ public class Client {
 	}
 	
 	public String popMessage(){
-		String first = messages.getFirst();
-		messages.removeFirst();
+		String first = null;
+		try{
+			first = messages.getFirst();
+			messages.removeFirst();
+		}catch(NoSuchElementException e){}
 		return first;
 	}
 	
