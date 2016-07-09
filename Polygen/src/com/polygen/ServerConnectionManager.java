@@ -8,11 +8,11 @@ import java.util.LinkedList;
 public class ServerConnectionManager {
 	
 	Thread connector;
-	boolean connectorRunning;
-	LinkedList<Thread> clients;
+	boolean connectorRunning = true;
+	LinkedList<Client> clients;
 	
 	public ServerConnectionManager(){
-		clients = new LinkedList<Thread>();
+		clients = new LinkedList<Client>();
 	}
 	
 	private Runnable getConnector(){
@@ -29,6 +29,7 @@ public class ServerConnectionManager {
 				while(connectorRunning){
 					try {
 						Socket sock = serverSock.accept();
+						clients.add(new Client(sock));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -38,4 +39,6 @@ public class ServerConnectionManager {
 		};
 		return temp;
 	}
+	
+	
 }
